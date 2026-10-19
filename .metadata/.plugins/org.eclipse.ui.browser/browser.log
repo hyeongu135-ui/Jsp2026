@@ -1,0 +1,33 @@
+
+10월 16, 2026 13:35:56.376 NEW SESSION
+10월 16, 2026 13:35:56.376 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 13:35:56.469 [16152:336:1016/133556.469:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 13:46:21.178 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 13:46:21.252 [16676:14600:1016/134621.252:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 13:52:58.161 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 13:52:58.269 [11764:11812:1016/135258.269:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 13:56:24.622 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 13:56:24.742 [15544:7852:1016/135624.742:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+10월 16, 2026 14:38:34.457 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 14:38:34.586 [4112:956:1016/143834.586:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 14:38:59.74 [4112:956:1016/143859.074:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 14:39:54.18 [4112:956:1016/143954.017:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 16, 2026 14:41:30.359 [4112:956:1016/144130.358:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+10월 16, 2026 16:13:38.135 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 16:13:38.204 [10880:16404:1016/161338.204:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+10월 16, 2026 16:40:05.767 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 16, 2026 16:40:05.865 [1916:15040:1016/164005.864:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+10월 16, 2026 17:39:03.556 [1916:8304:1016/173903.554:ERROR:components\system_cpu\cpu_probe_win.cc:134] PdhGetFormattedCounterValue failed: Error (0x13D) while retrieving error. (0x800007D6)
+
+10월 19, 2026 14:48:21.925 NEW SESSION
+10월 19, 2026 14:48:21.926 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 19, 2026 14:48:22.22 [7904:6560:1019/144822.022:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: QUOTA_EXCEEDED
+10월 19, 2026 16:49:00.801 Created TensorFlow Lite XNNPACK delegate for CPU.
+10월 19, 2026 16:49:00.911 [8480:13804:1019/164900.911:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 19, 2026 16:49:09.211 [8480:15312:1019/164909.211:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:732] Message 0 rejected by interface blink.mojom.WidgetHost
+10월 19, 2026 16:49:30.553 [8480:13804:1019/164930.553:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 19, 2026 16:50:18.126 [8480:13804:1019/165018.125:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 19, 2026 16:51:27.387 [8480:15312:1019/165127.387:ERROR:mojo\public\cpp\bindings\lib\interface_endpoint_client.cc:732] Message 0 rejected by interface blink.mojom.WidgetHost
+10월 19, 2026 16:51:55.445 [8480:13804:1019/165155.445:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 19, 2026 16:55:47.397 [8480:13804:1019/165547.397:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT
+10월 19, 2026 17:02:34.190 [8480:13804:1019/170234.190:ERROR:google_apis\gcm\engine\registration_request.cc:291] Registration response error message: DEPRECATED_ENDPOINT

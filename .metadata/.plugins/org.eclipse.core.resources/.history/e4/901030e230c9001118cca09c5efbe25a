@@ -1,0 +1,25 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<table border=1 style=text-align:"center">
+	<%! int[] winNums = {3, 12, 19, 27, 33, 41};
+		int count = 1;%>
+	<% for(int i = 0; i<5; i++){%>
+		<tr>
+		<%for(int j = 0; j<9; j++){%>
+		<%="<td"%>
+		<%for(int w = 0; w<=5; w++){%>
+			<%=count==winNums[i]?"Style=background-color=gold><b>":""%>
+			<%}%>
+		 <td><%=count++%></td>
+		<%}%></tr>
+	<%}%>
+	</table>
+</body>
+</html>

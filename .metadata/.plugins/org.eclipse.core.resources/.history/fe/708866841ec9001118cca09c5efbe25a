@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%!public void getGrade() {}
+	public String getGrade(int score) {
+		if (score >= 90) {
+			return "A";
+		}else if(score >= 80){
+			return "B";
+		}else if(score >= 70){
+			return "C";
+		}else if(score >= 60){
+			return "D";
+		}else{
+			return "F";
+		}
+	
+	}%>
+	<table border=1>
+		<tr>
+			<th>번호</th>
+			<th>이름</th>
+			<th>점수</th>
+			<th>등급</th>
+			<th>그래프</th>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>김철수</td>
+			<td>92</td>
+			<td><%= getGrade(92) %></td>	
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>이영희</td>
+			<td>78</td>
+			<td><%= getGrade(78) %></td>		
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>박민수</td>
+			<td>55</td>
+			<td><%= getGrade(55) %></td>		
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>최지우</td>
+			<td>85</td>
+			<td><%= getGrade(85) %></td>
+		
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>정다은</td>
+			<td>67</td>
+			<td><%= getGrade(67) %></td>			
+		</tr>
+	</table>
+</body>
+</html>

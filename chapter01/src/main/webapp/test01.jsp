@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="java.util.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>1부터 10까지 출력</h1>
+	<%
+	for (int i = 0; i <= 10; i++) {
+	%>
+	<!-- 표현식은 출력 -->
+	<%=i%>
+	<%
+	}
+	%>
+
+</body>
+</html>

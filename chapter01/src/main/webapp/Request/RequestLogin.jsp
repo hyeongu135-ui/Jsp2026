@@ -1,0 +1,52 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.*"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Request 로그인</title>
+<style type="text/css">
+	.container{
+	width: 600px;
+	margin:  20px auto;
+	}
+</style>
+</head>
+<body>
+	<div class="container">
+	<h2> 로그인 페이지</h2>
+	<!-- form안 action의 역할 : 이 페이지에서 작성한 정보를 action에서
+	 							지정한 파일로 떠넘겨주는 기술공간 
+	 			form안 method는 전송방식을 의미 : get, post
+	 			get 방식 : 웹페이지에서 입력받은 정보를 URL에 값이 출력됨
+	 			http://localhost:8080/chapter01/Request/RequestLoginProc.jsp?id=aaa&pass=1234
+	 			
+				post 방식 : 웹페이지에서 입력받은 정보를 URL에 숨겨서 충력됨
+				http://localhost:8080/chapter01/Request/RequestLoginProc.jsp
+				
+				submit : 전송버튼 클릭 => action의 RequestLoginProc.jsp가 실행됨
+	 			-->
+	<form action="RequestLoginProc.jsp" method="post">
+		<table width="400" border="1">
+			<tr height="60">
+				<td align="center" width="150">아이디</td>
+				<td align="center" width="350">
+					<input type="text" name ="id">	
+				</td>
+			</tr>
+			<tr height="60">
+				<td align="center" width="150">비밀번호</td>
+				<td align="center" width="350">
+					<input type="password" name ="pass">	
+				</td>
+			</tr>
+			<tr height="60">
+				<td colspan="2" align="center" width="150">
+					<input type="submit" value ="전송">	
+				</td>
+			</tr>
+		</table>
+	</form>
+	</div>
+</body>
+</html>
