@@ -25,11 +25,11 @@
 		
 		
 		
-		public int gettotalPay(int basePay, int bouns){
+/* 		public int gettotalPay(int basePay, int bouns){
 				for(int i = 0; i<pay.length; i++){
-					pay[i]
+				 true;
 				}
-				}
+				} */
 	%>
 </body>
 </html>
