@@ -9,7 +9,7 @@
 <title>차량조회</title>
 </head>
 <body>
-<h1>차량조회</h1>
+<h3>차량조회</h3>
 	<% 
 	request.setCharacterEncoding("utf-8");
 	PreparedStatement pstmt = null;
@@ -29,22 +29,26 @@
 		con = DriverManager.getConnection(url, user, password);
 		String sql = "select * from TBL_CAR";
 		pstmt = con.prepareStatement(sql);
-		rs = pstmt.executeQuery();
-		%>
+		rs = pstmt.executeQuery();%>
 		
-		<table border ="1"  >
+		<table class="list">
 			<tr>
 				<th>차량번호</th>
 				<th>모델</th>
 				<th>제조사</th>
 				<th>구매일</th>
 			</tr>
-			<% while(rs.next()){%>
+			<% while(rs.next()){
+		String date = rs.getString("CAR_DATE");
+		String format = date.substring(0,4)+"년"
+						+date.substring(4, 6)+"월"
+						+date.substring(6, 8)+"일";
+		%>
 				<tr>
-				<td><%= rs.getString("CAR_NO") %></td>
-				<td><%= rs.getString("CAR_MODEL") %></td>
-				<td><%= rs.getString("CAR_COMPANY") %></td>
-				<td><%= rs.getString("CAR_DATE") %></td>
+				<td class="form"><%= rs.getString("CAR_NO") %></td>
+				<td class="form"><%= rs.getString("CAR_MODEL") %></td>
+				<td class="form"><%= rs.getString("CAR_COMPANY") %></td>
+				<td class="form"><%= format %></td>
 				</tr>
 			<% } %>
 
@@ -53,13 +57,14 @@
 	<%}catch(Exception e){
 		e.printStackTrace();
 	}finally{
-		if(con != null){
-			try{con.close();}catch(Exception e){
-				e.printStackTrace();}
-		}if(rs != null){
+		if(rs != null){
 			try{rs.close();}catch(Exception e){
 				e.printStackTrace();}
 		}if(pstmt != null){
+			try{pstmt.close();}catch(Exception e){
+				e.printStackTrace();}
+		}
+		if(con != null){
 			try{con.close();}catch(Exception e){
 				e.printStackTrace();}
 		}

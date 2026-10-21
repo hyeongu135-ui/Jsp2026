@@ -9,9 +9,10 @@
 <title>차량조회</title>
 </head>
 <body>
-<h1>주행내역조회</h1>
+<h3>주행내역조회</h3>
 	<% 
-	DecimalFormat dec = new DecimalFormat();
+	DecimalFormat dec = new DecimalFormat("#,##0");
+	DecimalFormat dec2 = new DecimalFormat("₩#,##0");
 	request.setCharacterEncoding("utf-8");
 	PreparedStatement pstmt = null;
 	Connection con = null;
@@ -28,10 +29,14 @@
 	try{
 		Class.forName(driver);
 		con = DriverManager.getConnection(url, user, password);
-		String sql = "SELECT d.DRIVE_DATE,d.CAR_NO,c.CAR_MODEL,d.DRIVE_START,d.DRIVE_END,d.DEPT_CODE,d.DRIVE_MONEY FROM tbl_drive dinner join tbl_car c on d.CAR_NO = c.CAR_NO";
+		String sql = 
+				"SELECT d.DRV_DATE,d.CAR_NO,c.CAR_MODEL,d.DRV_START,d.DRV_END,t.DEPT_NAME,d.DRV_MONEY "
+				 +"FROM tbl_drive d "
+				 +"inner join tbl_car c on d.CAR_NO = c.CAR_NO "
+				 +"inner join tbl_dept t on d.DEPT_CODE = t.DEPT_CODE;";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();%>
-		<table border="1">
+		<table class="list">
 			<tr>
 				<th>주행일자</th>
 				<th>차량번호</th>
@@ -42,21 +47,25 @@
 				<th>주유금액</th>
 			</tr>
 			
-			<%while(rs.next()){ %>
+			<%while(rs.next()){
+			String date = rs.getString("DRV_DATE");
+			String format = date.substring(0,4)+"년"
+							+date.substring(4,6)+"월"
+							+date.substring(6,8)+"일";%>
 			
 			<tr>
-				<td><%= rs.getString("d.DRIVE_DATE") %></td>
-				<td><%= rs.getString("d.CAR_NO") %></td>
-				<td><%= rs.getString("c.CAR_MODEL") %></td>
-				<td><%= rs.getString("d.DRIVE_START") %></td>
-				<td><%= rs.getString("d.DRIVE_END") %></td>
-				<td><%= rs.getString("d.DEPT_CODE") %></td>
-				<td><%= rs.getString("d.DRIVE_MONEY") %></td>
+				<td class="form"><%= format %></td>
+				<td class="form"><%= rs.getString("CAR_NO") %></td>
+				<td class="form"><%= rs.getString("CAR_MODEL") %></td>
+				<td class="form"><%= dec.format(rs.getInt("DRV_START"))  %></td>
+				<td class="form"><%= dec.format(rs.getInt("DRV_END")) %></td>
+				<td class="form"><%= rs.getString("DEPT_NAME") %></td>
+				<td class="form"><%= dec2.format(rs.getInt("DRV_MONEY")) %></td>
 			</tr>
+		<%}%>
 		</table>
 		
-		<%}
-			}catch(Exception e){
+			<% }catch(Exception e){
 				e.printStackTrace();
 			}finally{
 				try{

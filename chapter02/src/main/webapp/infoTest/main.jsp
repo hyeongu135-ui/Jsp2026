@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel = "stylesheet" href = "css/main.css">
+<link rel = "stylesheet" href = "css/main_info.css">
 
 </head>
 <body>
@@ -28,11 +28,13 @@
 	   
 	
 	%>
+	<div id = "wrap">
 	<%@ include file = "header.jsp" %>
 	
 	<section>
 		<jsp:include page="<%=contentpage %>"></jsp:include>
 	</section>
 	<%@ include file = "footer.jsp" %>
+	</div>
 </body>
 </html>

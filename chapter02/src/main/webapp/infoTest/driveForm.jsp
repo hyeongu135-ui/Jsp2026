@@ -8,27 +8,28 @@
 <title>주행내역등록</title>
 </head>
 <body>
+<h3>주행내역등록</h3>
 				<form action="driveProc.jsp" method="post">
-		<TABLE border="1">
+		<TABLE class="form">
 			<TR>
-				<td><label for = "day">주행일자</label></td>
-				<td><input type ="text" name = "DRV_DATE" id="day">2023년 01월01일 예)20230101</td>
+				<td ><label for = "day">주행일자</label></td>
+				<td ><input type ="text" name = "DRV_DATE" id="day"><span class="hint">2023년 01월01일 예)20230101</span></td>
 			</tr>
 			<tr>
-				<td><label for = "num">차량번호</label></td>
-				<td><input type ="text" name = "CAR_NO" id=num>예)10가0001</td>
+				<td ><label for = "num">차량번호</label></td>
+				<td ><input type ="text" name = "CAR_NO" id=num><span class="hint">예)10가0001</span></td>
 			</tr>
 			<tr>
-				<td><label for = "st">출발Km</label></td>
-				<td><input type ="text" name = "DRV_START" id=st>Km</td>
+				<td ><label for = "st">출발Km</label></td>
+				<td ><input type ="text" name = "DRV_START" id=st><span class="hint">Km</span></td>
 			</tr>
 			<tr>
-				<td><label for = "end">도착Km</label></td>
-				<td><input type ="text" name = "DRV_END" id=end>Km</td>
+				<td ><label for = "end">도착Km</label></td>
+				<td ><input type ="text" name = "DRV_END" id=end><span class="hint">Km</span></td>
 			</tr>
 			<tr>
-				<td>부서코드</td>
-				<td>
+				<td >부서코드</td>
+				<td >
 					<select name="DEPT_CODE" >
 						<option value = 10>김영업</option>
 						<option value = 20>이총무</option>
@@ -38,12 +39,11 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for = "day">주유금액</label></td>
-				<td><input type ="text" name = "DRV_DATE" id="day">원
-				</td>
+				<td ><label for = "money">주유금액</label></td>
+				<td ><input type ="text" name = "DRV_MONEY" id="money">원</td>
 			</TR>
 			<tr>
-				<td><button type = "submit">주행내역등록</button><button type = "reset">다시쓰기</button></td>
+				<td colspan="2" class="btn"><button type = "submit">주행내역등록</button><button type = "reset">다시쓰기</button></td>
 			</tr>
 		</TABLE>
 		</form>
