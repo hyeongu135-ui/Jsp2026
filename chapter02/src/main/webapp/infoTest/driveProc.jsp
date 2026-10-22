@@ -1,3 +1,4 @@
+<%@page import="javax.tools.DocumentationTool.Location"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*"%>
 <%@ page import="java.sql.*"%>
@@ -16,7 +17,7 @@
 	//id를 체크하는 체크키
 	String day = request.getParameter("DRV_DATE");
 	String num = request.getParameter("CAR_NO");
-	String st = request.getParameter("DRV_START");
+	int st = Integer.parseInt(request.getParameter("DRV_START"));
 	String end = request.getParameter("DRV_END");
 	String de = request.getParameter("DEPT_CODE");
 	String money = request.getParameter("DRV_MONEY");
@@ -32,7 +33,7 @@
 		msg = "주행일자가입력되지않았습니다!";
 	} else if (num == null || num.equals("")) {
 		msg = "차량번호가입력되지않았습니다!";
-	} else if (st == null || st.equals("")) {
+	} else if (st == 0) {
 		msg = "출발Km가입력되지않았습니다!";
 	} else if (end == null || end.equals("")) {
 		msg = "도착km가입력되지않았습니다!";
@@ -44,7 +45,6 @@
 	%>
 	<% if(!msg.equals("")){%>
 	<script type="text/javascript">
-	
 		alert("<%=msg%>");
 		history.go(-1);
 	</script>
@@ -60,8 +60,8 @@
 
 		pstmt.setString(1, day);
 		pstmt.setString(2, num);
-		pstmt.setString(3, st);
-		pstmt.setString(4, end);
+		pstmt.setInt(3, st);
+		pstmt.setInt(4, Integer.parseInt(end));
 		pstmt.setString(5, de);
 		pstmt.setString(6, money);
 
@@ -70,8 +70,10 @@
 		//select => excuteQuery()메소드를 이용하여 실행함
 		// 			단, select문의 결과는 ResultSet객체에 담는다.
 		pstmt.executeUpdate();%>
-		<script type="text/javascript">alert("주행내역이 정상적으로 등록 되었습니다!")</script>
-		<%response.sendRedirect("main.jsp"); %> 
+		<script type="text/javascript">
+		alert("주행내역이 정상적으로 등록 되었습니다!")
+		location.href = "main.jsp";
+		</script>
 	
 	
 

@@ -1,7 +1,9 @@
 
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*"%>
     <%@ page import = "java.sql.*" %>
+    <%@ include file="db_conn.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,7 @@
 <body>
 <h3>차량조회</h3>
 	<% 
-	request.setCharacterEncoding("utf-8");
+/* 	request.setCharacterEncoding("utf-8");
 	PreparedStatement pstmt = null;
 	Connection con = null;
 	ResultSet rs = null;
@@ -22,7 +24,10 @@
 	// DB URL(스키마 이름 : jspdb)
 	String url = "jdbc:mysql://localhost:3306/jspdb?serverTimezone=UTC&useSSL=false";
 	String user = "root"; //DB계정 아이디
-	String password = "1234";//DB계정 비밀번호
+	String password = "1234";//DB계정 비밀번호 */
+	
+	SimpleDateFormat sf = new SimpleDateFormat("yyyymmdd");
+	SimpleDateFormat sf02 = new SimpleDateFormat("yyyy년mm월dd일");
 	
 	try{
 		Class.forName(driver);
@@ -48,7 +53,12 @@
 				<td class="form"><%= rs.getString("CAR_NO") %></td>
 				<td class="form"><%= rs.getString("CAR_MODEL") %></td>
 				<td class="form"><%= rs.getString("CAR_COMPANY") %></td>
-				<td class="form"><%= format %></td>
+				<!-- 
+					format()은 Date형식이고, DB는 String이기 때문에
+					parse() : String -> Date => 20230101 => Date객체로 변환
+					format() : Date -> String => Date객체 => "2023년01월01일"
+				 -->
+				<td class="form"><%= sf02.format(sf.parse(rs.getString("CAR_DATE"))) %></td>
 				</tr>
 			<% } %>
 

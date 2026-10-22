@@ -1,8 +1,121 @@
+<%@page import="javax.naming.spi.DirStateFactory.Result"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import = "java.util.*"%>
-    
-<p>국가직무능력표준(NCS:National Compertercy Standards)으로 설게된 교육·훈련과정을 충실히 이수한 후 , 내부·외부 평가를 거쳐 일정 합격 기준을 충족하는 교육·훈련생에게 국가기술자격을 부여하는 제도</p>
-<p class="bold">산업현장 주심의 교육평가로 더 커지는 능력!</p>
-<p class="bold">알고있는 것에 할 수 있는 것을 더하는</p>
-<p class="bold">과정평가형 자격은</p>
-<p class="bold">현장 중심형 인재육성을 지원합니다.</p>
+	pageEncoding="UTF-8" import="java.util.*"%>
+<%@ page import="java.sql.*"%>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/main_info.css">
+
+</head>
+<body>
+	<% request.setCharacterEncoding("utf-8");
+		// 현재 pageName = null이다.
+		// page은 반드시 Null처리한다.
+	   String contentpage = "";
+	   String pagName = request.getParameter("page");
+	   String index = request.getParameter("car");
+		String driver = "com.mysql.cj.jdbc.Driver"; //JDBC드라이버
+		// DB URL(스키마 이름 : jspdb)
+		String url = "jdbc:mysql://localhost:3306/jspdb?serverTimezone=UTC&useSSL=false";
+		String user = "root"; //DB계정 아이디
+		String password = "1234";//DB계정 비밀번호
+		ResultSet rs = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+	   
+	   if("carList.jsp".equals(pagName)){
+		   contentpage = "carList.jsp";
+	   }else if("driveForm.jsp".equals(pagName)){
+		   contentpage = "driveForm.jsp";
+	   }else if("driveList.jsp".equals(pagName)){
+		   contentpage = "driveList.jsp";
+	   }else if("deptStat.jsp".equals(pagName)){
+		   contentpage = "deptStat.jsp";
+	   }else if("index.jsp".equals(pagName)){
+		   contentpage = "";
+	   }else if("carDrive.jsp".equals(pagName)){
+		   contentpage = "carDrive.jsp";
+	   }else if("companyStat.jsp".equals(pagName)){
+		   contentpage = "companyStat.jsp";
+	   }
+	   	
+	   
+	
+	%>
+	<div id="wrap">
+		<%@ include file="header.jsp"%>
+
+		<% if(index == null){ %>
+		<% if(contentpage.equals("")||contentpage == null) {%>
+		<section>
+			<!-- ★ 섹션에 홈화면 넣는 방법  -->
+			<p>국가직무능력표준(NCS:National Compertercy Standards)으로 설게된 교육·훈련과정을
+				충실히 이수한 후 , 내부·외부 평가를 거쳐 일정 합격 기준을 충족하는 교육·훈련생에게 국가기술자격을 부여하는 제도</p>
+			<p class="bold">산업현장 주심의 교육평가로 더 커지는 능력!</p>
+			<p class="bold">알고있는 것에 할 수 있는 것을 더하는</p>
+			<p class="bold">과정평가형 자격은</p>
+			<p class="bold">현장 중심형 인재육성을 지원합니다.</p>
+		</section>
+		<%}else{%>
+		<section>
+			<jsp:include page="<%=contentpage %>"></jsp:include>
+		</section>
+		<%}}else{
+		try{
+		Class.forName(driver);
+		con=DriverManager.getConnection(url, user, password);
+		if(index == "0001"){
+		
+		String sql = "select DRIVE_DATE,DRIVE_START,DRIVE_END,DEPT_NAME,DRIVE_MONEY from tbl_drive d "
+					+"inner join tbl_dept t on d.DEPT_CODE = t.DEPT_COD "
+					+ "inner join tbl_car c on c.CAR_NO = d.CAR_NO "
+					+ "where d.CAR_NO = '10가0001';";
+		pstmt = con.prepareStatement(sql);
+		rs = pstmt.executeQuery();
+		%>
+		<section>
+			<h3>차량별주행조회</h3>
+			<form action="index.jsp" method="post">
+				<select name="car">
+					<option>차량선택</option>
+					<option value="0001">[10가0001]소나타</option>
+					<option value="0002">[10가0002]K5</option>
+					<option value="0003">[10가0003]SM5</option>
+					<option value="0004">[10가0004]그랜저</option>
+					<option value="0005">[10가0005]K5</option>
+				</select>
+				<button type="submit">조회</button>
+				<table>
+					<tr>
+						<th>주행일자</th>
+						<th>출발Km</th>
+						<th>도착Km</th>
+						<th>운행거리</th>
+						<th>부서명</th>
+						<th>주유금액</th>
+					</tr>
+
+					<%while(rs.next()){ %>
+					<tr>
+						<td><%= rs.getString("DRIVE_DATE") %></td>
+						<td><%= rs.getString("DRIVE_START") %></td>
+						<td><%= rs.getString("DRIVE_END") %></td>
+						<td><%= rs.getString("DEPT_NAME") %></td>
+						<td><%= rs.getString("DRIVE_MONEY") %></td>
+					</tr>
+					<%} %>
+				</table>
+			</form>
+		</section>
+		<%}}catch(Exception e){e.printStackTrace();}
+		finally{try{if(rs !=null){rs.close();}}catch(Exception e){e.printStackTrace();}
+				try{if(pstmt != null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
+				try{if(con !=null){con.close();}}catch(Exception e){e.printStackTrace();} }} %>
+		<%@ include file="footer.jsp"%>
+	</div>
+</body>
+</html>

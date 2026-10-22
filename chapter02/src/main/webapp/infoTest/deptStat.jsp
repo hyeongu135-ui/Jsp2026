@@ -10,7 +10,10 @@
 </head>
 <body>
 	<h3>(부서별)주행통계</h3>
-	<% 
+	<%
+	
+	DecimalFormat df = new DecimalFormat("#,##0");
+	DecimalFormat df02 = new DecimalFormat("￦#,##0");
 	request.setCharacterEncoding("utf-8");
 	PreparedStatement pstmt = null;
 	Connection con = null;
@@ -27,10 +30,10 @@
 
 		Class.forName(driver);
 		con = DriverManager.getConnection(url, user, password);
-		String sql = "select d.DEPT_CODE,DEPT_NAME,sum(DRV_END-DRV_START),sum(DRV_MONEY) from tbl_drive t "
-				 + "inner join tbl_dept d on t.DEPT_CODE = d.DEPT_CODE "
-				 + "group by d.DEPT_NAME,d.DEPT_CODE "
-				 + "ORDER BY d.DEPT_CODE;"; 
+		String sql = "select d.DEPT_COD,DEPT_NAME,sum(DRIVE_END-DRIVE_START) as s ,sum(DRIVE_MONEY) as t  from tbl_drive t "
+				 + "inner join tbl_dept d on t.DEPT_CODE = d.DEPT_COD "
+				 + "group by d.DEPT_COD "
+				 + "ORDER BY d.DEPT_COD;"; 
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();%>
 		<table class="list">
@@ -42,10 +45,10 @@
 			</tr>
 			<%while(rs.next()){ %>
 			<tr>
-				<td><%= rs.getString("DEPT_CODE") %></td>
+				<td><%= rs.getString("d.DEPT_COD") %></td>
 				<td><%= rs.getString("DEPT_NAME") %></td>
-				<td><%= rs.getString("sum(DRV_END-DRV_START)") %></td>
-				<td><%= rs.getString("sum(DRV_MONEY)") %></td>
+				<td><%= rs.getInt("s") %></td>
+				<td><%= df02.format(rs.getInt("t")) %></td>
 			</tr>
 			<%} %>
 		</table>

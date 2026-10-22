@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*"%>
@@ -10,9 +11,12 @@
 </head>
 <body>
 <h3>주행내역조회</h3>
-	<% 
-	DecimalFormat dec = new DecimalFormat("#,##0");
-	DecimalFormat dec2 = new DecimalFormat("₩#,##0");
+	<%
+	SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+	SimpleDateFormat sf02 = new SimpleDateFormat("yyyy년mm월dd일");
+	DecimalFormat df = new DecimalFormat("#,##0");
+	DecimalFormat df02 = new DecimalFormat("￦#,##0");
+
 	request.setCharacterEncoding("utf-8");
 	PreparedStatement pstmt = null;
 	Connection con = null;
@@ -29,11 +33,11 @@
 	try{
 		Class.forName(driver);
 		con = DriverManager.getConnection(url, user, password);
-		String sql = 
-				"SELECT d.DRV_DATE,d.CAR_NO,c.CAR_MODEL,d.DRV_START,d.DRV_END,t.DEPT_NAME,d.DRV_MONEY "
-				 +"FROM tbl_drive d "
-				 +"inner join tbl_car c on d.CAR_NO = c.CAR_NO "
-				 +"inner join tbl_dept t on d.DEPT_CODE = t.DEPT_CODE;";
+		String sql = "select CAR_DATE,c.CAR_NO,CAR_MODEL,DRIVE_START,DRIVE_END,DEPT_NAME,DRIVE_MONEY "+
+				"from tbl_drive d "+
+				"inner join tbl_car c on c.CAR_NO = d.CAR_NO "+
+				"inner join tbl_dept p on d.DEPT_CODE = p.DEPT_COD "+
+				"order by  d.CAR_NO ASC;";
 		pstmt = con.prepareStatement(sql);
 		rs = pstmt.executeQuery();%>
 		<table class="list">
@@ -47,20 +51,16 @@
 				<th>주유금액</th>
 			</tr>
 			
-			<%while(rs.next()){
-			String date = rs.getString("DRV_DATE");
-			String format = date.substring(0,4)+"년"
-							+date.substring(4,6)+"월"
-							+date.substring(6,8)+"일";%>
+			<%while(rs.next()){%>
 			
 			<tr>
-				<td class="form"><%= format %></td>
-				<td class="form"><%= rs.getString("CAR_NO") %></td>
-				<td class="form"><%= rs.getString("CAR_MODEL") %></td>
-				<td class="form"><%= dec.format(rs.getInt("DRV_START"))  %></td>
-				<td class="form"><%= dec.format(rs.getInt("DRV_END")) %></td>
-				<td class="form"><%= rs.getString("DEPT_NAME") %></td>
-				<td class="form"><%= dec2.format(rs.getInt("DRV_MONEY")) %></td>
+				<td ><%= sf02.format(sf.parse(rs.getString("CAR_DATE"))) %></td>
+				<td ><%= rs.getString("CAR_NO") %></td>
+				<td ><%= rs.getString("CAR_MODEL") %></td>
+				<td ><%= df.format(rs.getInt("DRIVE_START"))  %></td>
+				<td ><%= df.format(rs.getInt("DRIVE_END")) %></td>
+				<td ><%= rs.getString("DEPT_NAME") %></td>
+				<td ><%= df02.format(rs.getInt("DRIVE_MONEY")) %></td>
 			</tr>
 		<%}%>
 		</table>
