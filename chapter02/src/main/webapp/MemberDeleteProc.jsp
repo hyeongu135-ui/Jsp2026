@@ -24,8 +24,8 @@
 		String user = "root"; //DB계정 아이디
 		String password = "1234";//DB계정 비밀번호
 		
-		if(pass.equals("")|| pass == null){
-			msg = "비밀번호를 입력하세요";
+		if(pass.equals("")|| pass == null || id.equals("") || id == null){
+			msg = "아이디와 비밀번호를 입력하세요";
 		}else{
 		try{
 			Class.forName(driver);
@@ -34,16 +34,15 @@
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.setString(2, pass);
-			rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();	
 			
 			if(rs.next()){
 				rs.close();
 				pstmt.close();
 			
-			String sql2 = "delete from member where id='?';";
+			String sql2 = "delete from member where id=?;";
 			pstmt = con.prepareStatement(sql2);
 			pstmt.setString(1, id);
-			rs = pstmt.executeQuery();
 			int result = pstmt.executeUpdate();
 			
 			if(result > 0){
@@ -51,6 +50,8 @@
 			}else{
 				msg = "업뎃 실패";
 			}
+			}else{
+				msg = "비밀번호를 확인 하시오";
 			}
 		}catch(Exception e){
 			e.printStackTrace();

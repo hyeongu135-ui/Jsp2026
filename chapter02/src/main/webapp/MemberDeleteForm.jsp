@@ -9,10 +9,14 @@
 </head>
 <body>
 <h3>회원 정보 삭제</h3>
-			<% String id = request.getParameter("id"); %>
+			<% 
+			     request.setCharacterEncoding("utf-8"); 
+			     String id = request.getParameter("id"); 
+			%>
+			
 
-			<input type = "hidden" name = "id" value = "<%= id %>">
 			<form action="MemberDeleteProc.jsp" method = "post">
+			<input type = "hidden" name = "id" value = "<%= id %>">
 			<table border ="1">
 				<tr>
 				<td>아이디</td><td><%= id %></td>

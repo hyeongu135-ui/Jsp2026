@@ -37,7 +37,7 @@
 	String password = "1234";//DB계정 비밀번호
 	
 	//비밀번호 일치유무를 판단한다
-	if(pass2 == null || pass2.trim().isEmpty()){
+	if( pass2.trim().isEmpty()||pass2 == null){
 		msg = "비밀번호를 입력하시오";	
 	}else{
 		try{
