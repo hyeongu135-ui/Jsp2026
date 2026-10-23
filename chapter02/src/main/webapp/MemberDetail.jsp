@@ -71,11 +71,19 @@
 					<td width="350"><%=rs.getString("age")  %></td>
 				</tr>
 				<tr height="50">
-					<td align="center" width ="150">상세정보</td>
+					<td align="center" width ="150">남기는 말</td>
 					<td width="350"><%=rs.getString("info")  %></td>
 				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<button onclick = "location.href='main.jsp?page=MemberUpdateForm&id=<%=id%>'">회원수정</button>
+						<button onclick = "location.href='main.jsp?page=MemberDeleteForm&id=<%=id%>'">회원삭제</button>
+						<button onclick = "location.href='main.jsp?page=MemberList'">목록보기</button>
+						<button onclick = "location.href='main.jsp?page=MemberJoin'">회원가입</button>
+					</td>
+				</tr>
 			</table>
-			<a href="MemberJoin.jsp">회원가입으로 가기</a>
+			<a href="main.jsp?page=MemberJoin">회원가입으로 가기</a>
 		<%} 
 		
 	}catch(Exception e){e.printStackTrace();}finally{

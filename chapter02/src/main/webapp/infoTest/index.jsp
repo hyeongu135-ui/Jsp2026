@@ -1,3 +1,6 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.ParseException"%>
 <%@page import="javax.naming.spi.DirStateFactory.Result"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*"%>
@@ -13,6 +16,13 @@
 </head>
 <body>
 	<% request.setCharacterEncoding("utf-8");
+		SimpleDateFormat sf = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sf2 = new SimpleDateFormat("yyyy년mm월dd일");
+		
+		DecimalFormat df2 = new DecimalFormat("￦#,##0");
+		DecimalFormat df = new DecimalFormat("#,##0");
+		
+		
 		// 현재 pageName = null이다.
 		// page은 반드시 Null처리한다.
 	   String contentpage = "";
@@ -64,32 +74,34 @@
 		<section>
 			<jsp:include page="<%=contentpage %>"></jsp:include>
 		</section>
-		<%}}else{
+		<%}}else{ System.out.println("chk");
 		try{
 		Class.forName(driver);
 		con=DriverManager.getConnection(url, user, password);
-		if(index == "0001"){
 		
-		String sql = "select DRIVE_DATE,DRIVE_START,DRIVE_END,DEPT_NAME,DRIVE_MONEY from tbl_drive d "
-					+"inner join tbl_dept t on d.DEPT_CODE = t.DEPT_COD "
-					+ "inner join tbl_car c on c.CAR_NO = d.CAR_NO "
-					+ "where d.CAR_NO = '10가0001';";
+		
+		String sql = "select DRIVE_DATE,DRIVE_START,DRIVE_END,DRIVE_END-DRIVE_START as a,DEPT_NAME ,DRIVE_MONEY from tbl_drive d" 
+				+" inner join tbl_dept t on d.DEPT_CODE = t.DEPT_COD"
+				+" inner join tbl_car c on c.CAR_NO = d.CAR_NO"
+				+" where d.CAR_NO = ?";
 		pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, index);
 		rs = pstmt.executeQuery();
 		%>
+		
 		<section>
 			<h3>차량별주행조회</h3>
 			<form action="index.jsp" method="post">
 				<select name="car">
 					<option>차량선택</option>
-					<option value="0001">[10가0001]소나타</option>
-					<option value="0002">[10가0002]K5</option>
-					<option value="0003">[10가0003]SM5</option>
-					<option value="0004">[10가0004]그랜저</option>
-					<option value="0005">[10가0005]K5</option>
+					<option value="10가0001">[10가0001]소나타</option>
+					<option value="10가0002">[10가0002]K5</option>
+					<option value="10가0003">[10가0003]SM5</option>
+					<option value="10가0004">[10가0004]그랜저</option>
+					<option value="10가0005">[10가0005]K5</option>
 				</select>
 				<button type="submit">조회</button>
-				<table>
+				<table class = "list">
 					<tr>
 						<th>주행일자</th>
 						<th>출발Km</th>
@@ -101,20 +113,21 @@
 
 					<%while(rs.next()){ %>
 					<tr>
-						<td><%= rs.getString("DRIVE_DATE") %></td>
-						<td><%= rs.getString("DRIVE_START") %></td>
-						<td><%= rs.getString("DRIVE_END") %></td>
+						<td><%= sf2.format(sf.parse(rs.getString("DRIVE_DATE"))) %></td>
+						<td><%= df.format(df.parse(rs.getString("DRIVE_START"))) %></td>
+						<td><%= df.format(df.parse(rs.getString("DRIVE_END"))) %></td>
+						<td><%= rs.getString("a") %></td>
 						<td><%= rs.getString("DEPT_NAME") %></td>
-						<td><%= rs.getString("DRIVE_MONEY") %></td>
+						<td><%= df2.format(df.parse(rs.getString("DRIVE_MONEY")))  %></td>
 					</tr>
 					<%} %>
 				</table>
 			</form>
 		</section>
-		<%}}catch(Exception e){e.printStackTrace();}
+		<%}catch(Exception e){e.printStackTrace();}
 		finally{try{if(rs !=null){rs.close();}}catch(Exception e){e.printStackTrace();}
 				try{if(pstmt != null){pstmt.close();}}catch(Exception e){e.printStackTrace();}
-				try{if(con !=null){con.close();}}catch(Exception e){e.printStackTrace();} }} %>
+				try{if(con !=null){con.close();}}catch(Exception e){e.printStackTrace();}}} %>
 		<%@ include file="footer.jsp"%>
 	</div>
 </body>

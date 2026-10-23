@@ -12,11 +12,11 @@
 	<form action="index.jsp" method="post">
 		<select name ="car" >
 			<option>차량선택</option>
-			<option value = "0001">[10가0001]소나타</option>
-			<option value = "0002">[10가0002]K5</option>
-			<option value = "0003">[10가0003]SM5</option>
-			<option value = "0004">[10가0004]그랜저</option>
-			<option value = "0005">[10가0005]K5</option>
+			<option value = "10가0001">[10가0001]소나타</option>
+			<option value = "10가0002">[10가0002]K5</option>
+			<option value = "10가0003">[10가0003]SM5</option>
+			<option value = "10가0004">[10가0004]그랜저</option>
+			<option value = "10가0005">[10가0005]K5</option>
 		</select>
 	<button type="submit">조회</button>
 	

@@ -189,7 +189,7 @@
 	%>
 	<script type="text/javascript">
 		alert("<%=msg%>");
-		history.go(-1);
+		location.href = "main.jsp?page=main.jsp"
 	</script>
 	<%}%>
 </body>

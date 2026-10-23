@@ -67,7 +67,7 @@
 			<td><%= rs.getString("job") %></td>
 			<td><%= rs.getString("age") %></td>
 			<td><%= rs.getString("info") %></td>
-			<td><a href="MemberDetail.jsp?id=<%= rs.getString("id")%>">상세보기</a>
+			<td><a href="main.jsp?page=MemberDetail&id=<%= rs.getString("id")%>">상세보기</a>
 		</tr>
 		<% }
 		}catch(Exception e){
