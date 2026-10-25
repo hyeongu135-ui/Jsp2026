@@ -11,12 +11,13 @@
 </head>
 <body>
 	
+		<jsp:inc lude page="header.jsp"></jsp:include>
 	<%
 	request.setCharacterEncoding("utf-8");
 	DecimalFormat df =new DecimalFormat("#,###");
 	DecimalFormat df2 =new DecimalFormat("￦#,###");
-	try {
-		Class.forName(driver);
+	try {%>
+		<%Class.forName(driver);
 		con = DriverManager.getConnection(url, user, password);
 		
     	String spl = "select t.custno, t.custname,grade,sum(price) from member_tbl_02 t "
@@ -26,6 +27,7 @@
     	rs = pstmt.executeQuery();
     	
     	%>
+	<section>
     		<table>
     		<tr>
     			<th>회원번호</th>
@@ -42,7 +44,8 @@
     			</tr>
     		<%} %>
     		</table>
-    	
+    </section>
+    			<jsp:include page="footer.jsp"></jsp:include>
     	
     
   <%} catch (Exception e) {

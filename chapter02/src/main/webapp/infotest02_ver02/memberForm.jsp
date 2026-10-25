@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원목록</title>
 </head>
 <body>
 	<%	
@@ -24,7 +24,9 @@
     	pstmt = con.prepareStatement(sql);
     	rs = pstmt.executeQuery();%>
     	
-    	
+    	  <jsp:include page="header.jsp"></jsp:include>
+
+  <section>
     	<table>
     		<tr>
     			<th>회원번호</th>
@@ -38,13 +40,12 @@
     	<%while(rs.next()){%>
     	
     	<tr>
-    		<td><%-- <a href="modFrom.jsp?=<%=rs.getString("custno")%>"> --%><%= rs.getString("custno") %></a></td>
+    		<td><a href="modForm.jsp?id=<%= rs.getString("custno") %>"><%= rs.getString("custno") %></a></td>
     		<td><%= rs.getString("custname") %></td>
     		<td><%= rs.getString("phone") %></td>
     		<td><%= rs.getString("address") %></td>
     		<td><%= sf2.format(sf.parse(rs.getString("joindate")))%></td>
-    		<td><%= rs.getString("grade") %></td>
-    		<%--<td><% 
+    		<td><% 
     		if("A".equals(rs.getString("grade"))){%>
      		<%= "VIP" %>
     		<%}else if("B".equals(rs.getString("grade"))){%>
@@ -52,12 +53,15 @@
     		<%}else if("C".equals(rs.getString("grade"))){%>
     		<%= "직원" %>
     		<%}%>
-    		</td> --%>
+    		</td>
     		<td><%= rs.getString("city") %></td>
     	</tr>	
     	<%}%>
     	</table>
-    
+    	</section>
+    	  <jsp:include page="footer.jsp"></jsp:include>
+    	
+    	
   <%} catch (Exception e) {
     e.printStackTrace();
   } finally {
@@ -67,5 +71,7 @@
       if (con != null) con.close();
     } catch (Exception e) { e.printStackTrace(); }
   }%>
+
+    
 </body>
 </html>

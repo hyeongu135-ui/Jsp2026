@@ -74,10 +74,10 @@
 				<th>도시코드</th>
 				<td><input type="text" name="city"></td>
 			</tr>
-			<tr>
-				<td>
-					<input type="button" value="등록" onclick="checkForm()">
-					<input type="button" value="조회" onclick="location.href='memberForm.jsp'">
+			<tr >
+				<td COLSPAN ="2" style="text-align: center;">
+					<input   type="button" value="등록" onclick="checkForm()">
+					<input   type="button" value="조회" onclick="location.href='memberForm.jsp'">
 				</td>
 			</tr>
 		</table>
