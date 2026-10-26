@@ -1,13 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import = "java.util.*"%>
-	<%@ page import ="java.sql.*" %>   
-	<%@ include file = "db_conn.jsp" %>
+    <%@ page import = "java.sql.*" %>
+    <%@ page import ="DBPKG.Util" %>
+
 	
 <%
 	int nextNo = 0;	
+     Connection con = null;
+     PreparedStatement pstmt = null;
+     ResultSet rs =null;
+
 	try{
-		Class.forName(driver);
-		con = DriverManager.getConnection(url, user, password);
+
+		con = Util.getConnection();
 		
 		// sql문을 작성하여 sql문자 변수에 담는다. sql은 혼자선 아무것도 못함
 		// 등록할때 회원번호 자동으로 1씩 증가되어 생성 : 100006

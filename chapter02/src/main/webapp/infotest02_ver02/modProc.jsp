@@ -11,23 +11,21 @@
 </head>
 <body>
 <%
-
-	
-	
 	request.setCharacterEncoding("utf-8");
-	String num = request.getParameter("num");
+	int num = Integer.parseInt(request.getParameter("num"));
 	String name = request.getParameter("name");
 	String tel = request.getParameter("tel");
 	String add = request.getParameter("add");
 	String day = request.getParameter("day");
 	String grade = request.getParameter("grade");
 	String city = request.getParameter("city");
+	String msg = "";
 	
-	try{
+		try{
 		Class.forName(driver);
 		con = DriverManager.getConnection(url, user, password);		
 		String sql = "update member_tbl_02 set custname = ? , phone = ?, address = ?, joindate =?, grade=?, city=? "
-				+ "where custno= ?;";
+				+ "where custno= ?";
 				
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, name);
@@ -36,17 +34,16 @@
 		pstmt.setString(4, day);
 		pstmt.setString(5, grade);
 		pstmt.setString(6, city);
-		pstmt.setString(7, num);
-		boolean result = pstmt.executeUpdate() > 0;
+		pstmt.setInt(7, num);
 		
+		boolean result = pstmt.executeUpdate() > 0;
 		if(result){%>
 			<script type="text/javascript">
-				alert('업뎃 성공');
+				alert('업데이트 성공');
 				location.href ="memberForm.jsp"
 			</script>
-		<%}; %>
-		
-	<%}catch(Exception e){
+		<%};
+		}catch(Exception e){
 		e.printStackTrace();
 	}finally{
 		try{
@@ -54,11 +51,7 @@
 		if(pstmt != null)pstmt.close();
 		if(con != null)con.close();}
 		catch(Exception e){e.printStackTrace();}
-	}
-	
-	
-	
-%>
+	}%>
 
 
 </body>
