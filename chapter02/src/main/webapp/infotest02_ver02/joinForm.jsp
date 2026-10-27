@@ -81,8 +81,8 @@
 			</tr>
 			<tr >
 				<td COLSPAN ="2" style="text-align: center;">
-					<input   type="button" value="등록" onclick="checkForm()">
-					<input   type="button" value="조회" onclick="location.href='memberForm.jsp'">
+					<input type="button" value="등록" onclick="checkForm()">
+					<input type="button" value="조회" onclick="location.href='memberForm.jsp'">
 				</td>
 			</tr>
 		</table>
