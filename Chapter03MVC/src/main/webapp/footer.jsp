@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>footer</title>
-</head>
-<body>
 	<footer> 
 		<div class="footerWrap">
 			<img alt="로그이미지" src="img/sk_logo_gray.png">
@@ -19,5 +12,3 @@
 		</p>
 		</div>
 	</footer>
-</body>
-</html>

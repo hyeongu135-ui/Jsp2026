@@ -1,17 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*"%>
 	<%@ page import = "java.sql.*" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원가입</title>
-<!-- <link rel="stylesheet" href="style/index02.css"> -->
-</head>
-<body>
+
 	<div class="joinwrap">
 		<h2 align="center">회원가입</h2>
-
 		<form action="MProc.do" method="post" name="jform">
 			<table class="data" width="500" border="1">
 				<tr height="50">
@@ -90,7 +82,7 @@
 		<!-- <a href="MemberList.jsp">회원목록보기</a> -->
 		
 		<p align="center">
-			<input type="button" value="회원 전체 보기" onclick="location.href='main.jsp?page=MemberList'">
+			<input type="button" value="회원 전체 보기" onclick="location.href='index.jsp?section=MemberList.jsp'">
 		</p>
 		
 	</div>
@@ -157,5 +149,3 @@
 		
 	}
 </script>
-</body>
-</html>

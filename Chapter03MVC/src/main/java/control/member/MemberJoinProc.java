@@ -43,7 +43,6 @@ public class MemberJoinProc extends HttpServlet {
 		String pass = request.getParameter("pass");
 		String passchk = request.getParameter("passchk");
 
-		System.out.println("입아:"+id +"입비"+chkid);
 		
 //		mdto.setId(id);
 		mdto.setEmail(request.getParameter("email"));
@@ -55,7 +54,7 @@ public class MemberJoinProc extends HttpServlet {
 		String[] arr = request.getParameterValues("hobby");
 		String oneHobby ="";
 		for(String hob:arr){
-			oneHobby += hob = " " ;
+			oneHobby += hob + " " ;
 		}
 		mdto.setHobby(oneHobby);
 		mdto.setJob(request.getParameter("job"));
@@ -78,18 +77,25 @@ public class MemberJoinProc extends HttpServlet {
 				
 				// 회원전체 목록을 출력하는 MemberList생성 예정
 				// MemberJoinProc에서 다른 컨드롤러 MemberListCon.do 컨트롤러로 이동
-				jspAddress = "MemberListCon.do";
-				System.out.println("gd");
+				// jsp에서 insert/update/delete 처럼 DB가 수정되는 쿼리는
+				// --> forward가 아닌 sendRedirect로 전송함
+				// 단순 검색 내용 출력시에만 forward 사용함.
+				// forward는 F5(새로고침)하면 원래요청을 재전송하는 특징을 가진다.
+				// sendRedirect는 이동한 주소만 재요청한다.
+				// sendRedirect는 response의 메소드이다.
+				// response.sendRedirect()이다.
 				
+				response.sendRedirect("index.jsp");
+				//return을 이용하여 메소드 박으로 빠져나간다.
+				return;
 			}else {
 				request.setAttribute("msg", "비밀번호를 확인하세요.");
 				jspAddress = "/member/joinerr.jsp";
 			}
 			
 			RequestDispatcher rd = request.getRequestDispatcher(jspAddress);
-			rd.forward(request, response);
+			rd.forward(request, response); // forward = F5 누르면 실행이 한번 더 된다
 			
-	
 	}
 	
 
