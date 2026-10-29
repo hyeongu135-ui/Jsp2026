@@ -27,6 +27,44 @@ public class MypageUpdate extends HttpServlet {
 		rePro(request, response);
 	}
 	protected void rePro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	 request.setCharacterEncoding("utf-8");
+	 
+	 MemberDAO mdao = new MemberDAO();
+	 MemberDTO mdto = new MemberDTO();
+	 
+	 // Mypage.jsp에서 hidden의 value를 받아옴
+	 String id = request.getParameter("id");
+	 String pass =request.getParameter("pass");
+	 String passchk =request.getParameter("passchk");
+	 
+	 
+	 //비밀번호와 비밀번호체크가 다르면 오류메시지 띄우기 
+	 // Mypage.do 서블릿에 result=passfail
+
+	 String[] arr = request.getParameterValues("hobby");
+	 String oneHobby ="";
+	 
+	 if(arr != null) {
+	 for(String hob : arr) {
+		 oneHobby += hob + " ";
+	 }
+	 }
+
+	 // 나머지 MemberDTO 가방에 담는다
+	 mdto.setId(id);
+	 mdto.setPass(pass);
+	 mdto.setEmail(request.getParameter("email"));
+	 mdto.setTel(request.getParameter("tel"));
+	 mdto.setHobby(oneHobby);
+	 mdto.setJob(request.getParameter("job"));
+	 mdto.setAge(request.getParameter("age"));
+	 mdto.setInfo(request.getParameter("info"));
+	 
+	 mdao.update(mdto);
+	 
+	 response.sendRedirect("Mypage.do?result=ok");
+	 
+	 
 	}
 
 }

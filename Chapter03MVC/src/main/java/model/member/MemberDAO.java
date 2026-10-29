@@ -206,6 +206,7 @@ public void JoinId(MemberDTO mdto) {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				
 				mdto.setId(rs.getString(1));
 				mdto.setPass(rs.getString(2));
 				mdto.setEmail(rs.getString(3));
@@ -213,7 +214,7 @@ public void JoinId(MemberDTO mdto) {
 				mdto.setHobby(rs.getString(5));
 				mdto.setJob(rs.getString(6));
 				mdto.setAge(rs.getString(7));
-				mdto.setAge(rs.getString(8));
+				mdto.setInfo(rs.getString(8));
 				
 				
 			}
@@ -233,15 +234,12 @@ public void JoinId(MemberDTO mdto) {
 	}
 	
 	
-	public boolean update(ArrayList<MemberDTO> arrayList) {
+	public void update(MemberDTO mdto) {
 		
-		boolean update = false;
-		
-		MemberDTO mdto = new MemberDTO();
 		
 		try {
 			con = Util.getConnection();
-			String sql = "update member set pass=?, email=?, tel=?, hobby=?, job=?, age=? where id=?";
+			String sql = "update member set pass=?, email=?, tel=?, hobby=?, job=?, age=?, info=? where id=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mdto.getPass());
 			pstmt.setString(2, mdto.getEmail());
@@ -249,7 +247,8 @@ public void JoinId(MemberDTO mdto) {
 			pstmt.setString(4, mdto.getHobby());
 			pstmt.setString(5, mdto.getJob());
 			pstmt.setString(6, mdto.getAge());
-			return update = pstmt.executeUpdate() > 0;
+			pstmt.setString(7, mdto.getInfo());
+			pstmt.setString(8, mdto.getId());
 			
 		}catch(Exception e) {
 			
@@ -264,7 +263,6 @@ public void JoinId(MemberDTO mdto) {
 		}
 		
 		
-		return update;
 	}
 	
 }
