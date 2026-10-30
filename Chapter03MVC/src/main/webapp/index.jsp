@@ -15,6 +15,7 @@
 		section = "section.jsp";		
 	}
 %>
+
 <div class="container">
 	<jsp:include page="header.jsp"/>
 		<section>
@@ -24,4 +25,4 @@
 </div>
 
 </body>
-</html>
+</html> 

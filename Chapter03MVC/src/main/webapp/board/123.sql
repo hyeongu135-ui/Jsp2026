@@ -1,0 +1,1 @@
+update member set readcount=+1 from member where num=?

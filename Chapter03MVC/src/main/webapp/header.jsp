@@ -14,7 +14,7 @@
 				</td>
 				<td align="center" width="200"><a href="#" class="nav">예약확인</a>
 				</td>
-				<td align="center" width="200"><a href="#" class="nav">게시판</a>
+				<td align="center" width="200"><a href="BoardListCon.do" class="nav">게시판</a>
 				</td>
 				<c:choose>
 					<%-- 로그인된 상태 , sessionScop(세션영역),id --%>
