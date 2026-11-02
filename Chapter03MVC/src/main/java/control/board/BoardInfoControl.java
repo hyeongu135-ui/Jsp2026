@@ -32,7 +32,7 @@ public class BoardInfoControl extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-		bdto = bdao.BoardInfo(num);
+		bdto = bdao.getOneBoard(num);
 		
 		request.setAttribute("bdto", bdto);
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp?section=board/BoardInfo.jsp");

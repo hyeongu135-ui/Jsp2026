@@ -11,8 +11,10 @@
 <body>
 <%
 	String section = request.getParameter("section");
-	if(section == null){
-		section = "section.jsp";		
+	if(section == null){ 
+		response.sendRedirect("CarProductListProc.do");
+		return;
+		/* section = "section.jsp"; */		
 	}
 %>
 

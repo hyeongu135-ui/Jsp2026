@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="style/board.css">
-
-<div class="rewrap">
+<div class="boardwrap">
     <h2>게시글 보기</h2>
     <table width="600" border="1">
         <tr height="40">
@@ -33,10 +32,17 @@
         </tr>
         <tr height="40">
             <td align="center" colspan="4">
+            	<!-- 로그인상태 == 관리자 [답글쓰기] 버튼 출력 , 수정/삭제 버튼은 X -->
                 <!-- 데이터를 읽어들여야 하기 때문에 servlet인 ~.do로 먼저 넘겨주고 다시 view-JSP파일로 넘겨주어야 함을 주의하자 -->
+                <c:if test ="${sessionScope.id eq 'admin'}">
                 <input type="button" value="답글쓰기" onclick="location.href='BoardReWriterCon.do?num=${bdto.num}&ref=${bdto.ref}&re_step=${bdto.re_step}'">
+				</c:if>                
+  	            <c:if test="${sessionScope.id ne 'admin' && not empty sessionScope.id}">
                 <input type="button" value="수정하기" onclick="location.href='BoardUpdateCon.do?num=${bdto.num}'">
                 <input type="button" value="삭제하기" onclick="location.href='BoardDeleteCon.do?num=${bdto.num}'">
+                </c:if>
+                
+                <!-- 목록보기는 모두 보기 가능 -->
                 <input type="button" value="목록보기" onclick="location.href='BoardListCon.do'">
             </td>
         </tr>

@@ -18,7 +18,7 @@ public class BoardDAO {
 		try {
 			con = Util.getConnection();
 			//쿼리문
-			String sql = "select * from board order by ref desc limit ?,?";
+			String sql = "select * from board where chkDel= 0 order by ref desc limit ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1,startRow);
 			pstmt.setInt(2,pageSize);
@@ -57,7 +57,7 @@ public class BoardDAO {
 		try {
 			con = Util.getConnection();
 			//쿼리문
-			String sql = "select count(num) from board";
+			String sql = "select count(num) from board where chkDel = 0";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -118,12 +118,12 @@ public class BoardDAO {
 	}
 	
 	//-----게시물 보기
-	public BoardDTO BoardInfo(int num) {
+	public BoardDTO getOneBoard(int num) {
 		BoardDTO d = new BoardDTO();
 		
 		try {
 			con = Util.getConnection();
-			String sql = "select num,writer,email,subject,reg_date,readcount,content from Board where num=?";
+			String sql = "select * from Board where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();
@@ -133,9 +133,13 @@ public class BoardDAO {
 				d.setWriter(rs.getString(2));
 				d.setEmail(rs.getString(3));
 				d.setSubject(rs.getString(4));
-				d.setReg_date(rs.getString(5));
-				d.setReadcount(rs.getInt(6));
-				d.setContent(rs.getString(7));
+				d.setPassword(rs.getString(5));
+				d.setReg_date(rs.getString(6));
+				d.setRef(rs.getInt(7));
+				d.setRe_step(rs.getInt(8));
+				d.setReadcount(rs.getInt(9));
+				d.setContent(rs.getString(10));
+				d.setId(rs.getString(11));
 				
 			}
 			
@@ -159,31 +163,135 @@ public class BoardDAO {
 	}
 	
 	
-	// ---- 답글달기
-
-	public BoardDTO reInsertBoard(BoardDTO bdao) {
-		BoardDTO b = new BoardDTO();
+	// ---- 2026년 11월 02일 답글달기
+	// 답글 삽입하는 메소드 작성
+	// 메소드 이름 : reinsertBoard(BoarddDTO bdto)
+	// BoardInfo.jsp에서 get방식으로 num, ref, re_step 떠넘김
+		
+	public void reinsertBoard(BoardDTO bdto) {
+		int ref = bdto.getRef();
+		//1:1 문의이므로 답변의 re_step은 무조건 1로 고정한다
+		int re_step = 1;
+		//콘솔에서 번호를 확인한다.
+		System.out.println("ref -> DB"+ref);
+		System.out.println("re_step -> DB"+re_step);
+		
 		try {
 			con = Util.getConnection();
-			String sql = "insert board into values(null,?,?,?,?,currentdate(),0,0,0,?,?)";
+			String sql = "insert into board values(null,?,?,?,?,current_date(),?,?,0,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, b.);
-			pstmt.setString(2, "email");
-			pstmt.setString(3, "subject");
-			pstmt.setString(4, "writer");
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
+			pstmt.setString(1, bdto.getWriter());
+			pstmt.setString(2, bdto.getEmail());
+			pstmt.setString(3, bdto.getSubject());
+			pstmt.setString(4, bdto.getPassword());
+			pstmt.setInt(5, ref);
+			pstmt.setInt(6, re_step);
+			pstmt.setString(7, bdto.getContent());
+			pstmt.setString(8, bdto.getId());
+			pstmt.executeUpdate();
+				
+			
+			
+
+			
+		}catch(Exception e) {e.printStackTrace();}finally {
 			try {if(rs != null) {rs.close();}
 				if(pstmt != null) {pstmt.close();}
 				if(con != null) {con.close();}
 			}catch(Exception e) {e.printStackTrace();}
+			
 		}
 		
-		
-		
-		
-		return b;
 	}
 	
-}
+	//--게시물 수정
+	public BoardDTO getOneUpdateBoard(int num) {
+		BoardDTO d = new BoardDTO();
+		
+		try {
+			con = Util.getConnection();
+			String sql = "select * from Board where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				d.setNum(rs.getInt(1));
+				d.setWriter(rs.getString(2));
+				d.setEmail(rs.getString(3));
+				d.setSubject(rs.getString(4));
+				d.setPassword(rs.getString(5));
+				d.setReg_date(rs.getString(6));
+				d.setRef(rs.getInt(7));
+				d.setRe_step(rs.getInt(8));
+				d.setReadcount(rs.getInt(9));
+				d.setContent(rs.getString(10));
+				d.setId(rs.getString(11));
+				
+			}
+			
+		}catch(Exception e) {e.printStackTrace();}finally {
+			try {if(rs != null) {rs.close();}
+				if(pstmt != null) {pstmt.close();}
+				if(con != null) {con.close();}
+			}catch(Exception e) {e.printStackTrace();}
+			
+		}
+		return d;
+		
+	}
+	
+	
+	//-------
+	//업데이트 관리
+	//메소드 이름 : updateBoard(int num, String subject, String content)
+	public void updateBoard(int num, String subject, String content) {
+		try {
+			con = Util.getConnection();
+			//하나의 게시물 업데이트하는 쿼리문 작성
+			String sql = "update board set subject = ?, content =? where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, subject);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, num);
+			pstmt.executeUpdate();
+			
+			
+		}catch(Exception e) {e.printStackTrace();}finally {
+			try {if(rs != null) {rs.close();}
+				if(pstmt != null) {pstmt.close();}
+				if(con != null) {con.close();}
+			}catch(Exception e) {e.printStackTrace();}
+			
+		}
+	}
+	
+	// 소프트 삭제하는 메소드 작성
+	// 삭제 버튼을 클릭하면 chkDel을 1로 업데이트함
+	// chkDel이 1인 데이터는 화면에 출력하지 않는다.
+	public void delete(int num) {
+		try {
+			con = Util.getConnection();
+			//데이터를 지우지 않고 chkDel을 1로 업데이트함
+			String sql = "update board set chkDel=1 where num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {e.printStackTrace();}finally {
+			try {if(rs != null) {rs.close();}
+				if(pstmt != null) {pstmt.close();}
+				if(con != null) {con.close();}
+			}catch(Exception e) {e.printStackTrace();}
+			
+		}
+	}
+	
+		
+	}
+	
+	
+		
+		
+		
+	
+
